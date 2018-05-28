@@ -15,6 +15,5 @@ export function addTodo(todo: Todo): Dispatcher {
 }
 
 export function toggleTodo(todo: Todo): Dispatcher {
-  todo.completed = !todo.completed
   return { type: Types.ToggleTodo, payload: { todo } }
 }

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 // import * as types from '../types'
 import user from './User';
-import todos from './Todos';
+import Todos from './Todos';
 const rootReducer = combineReducers({
     user,
-    todos
+    Todos
 });
 export default rootReducer;
 //# sourceMappingURL=index.js.map

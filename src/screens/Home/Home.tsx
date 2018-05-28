@@ -37,6 +37,8 @@ class Home extends React.Component<Props, State> {
     }
   }
 
+  
+
   componentWillMount() {
     this.props.navigation.setParams({ logout: this._handleLogout })
   }
@@ -70,7 +72,7 @@ import { connect } from 'react-redux'
 import Actions from './../../store/actions'
 
 const mapStateToProps = state => ({
-  todos: state.todos.todos
+  todos: state.Todos.todos.toArray()
 })
 
 const mapDispatcherToProps = dispatch => ({

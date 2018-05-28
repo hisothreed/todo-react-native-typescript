@@ -1,28 +1,41 @@
 import ActionTypes from '../types';
+import { List } from 'immutable';
 const initialState = {
-    todos: [
+    todos: List([
         {
-            id: 1,
+            id: 0,
             title: 'hello world',
             completed: false
         }
-    ]
+    ])
 };
-const user = (state = initialState, action) => {
-    let todos = state.todos;
+const addTodo = (todo, state) => {
+    const todos = state.todos;
+    todo.id = todos.count() + 1;
+    const newTodos = todos.push(todo);
+    return Object.assign({}, state, { todos: newTodos });
+};
+const toggleTodo = (todo, state) => {
+    const todos = state.todos;
+    const index = todos.findIndex(t => t.id === todo.id);
+    const newTodos = todos.update(index, (val) => {
+        val.completed = !val.completed;
+        return val;
+    });
+    console.log('====================================');
+    console.log(Object.assign({}, state, { todos: newTodos }));
+    console.log('====================================');
+    return Object.assign({}, state, { todos: newTodos });
+};
+const Todos = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.AddTodo:
-            let newTodo = action.payload.todo;
-            newTodo.id = todos[todos.length - 1].id + 1;
-            todos.push(newTodo);
-            return Object.assign({}, state, { todos: [...todos] });
+            return addTodo(action.payload.todo, state);
         case ActionTypes.ToggleTodo:
-            const index = state.todos.findIndex(t => t.id === action.payload.todo.id);
-            todos[index].completed = action.payload.todo.completed;
-            return Object.assign({}, state, { todos: [...todos] });
+            return toggleTodo(action.payload.todo, state);
         default:
             return state;
     }
 };
-export default user;
+export default Todos;
 //# sourceMappingURL=Todos.js.map

@@ -1,40 +1,57 @@
 import ActionTypes from '../types'
+import { List } from 'immutable'
 
 interface Todo {
-  id: number,
+  id: number
   title: string
   completed: boolean
 }
 
 interface TodosState {
-  todos: Todo[]
+  todos: List<Todo>
 }
 
 const initialState: TodosState = {
-  todos: [
+  todos: List([
     {
-      id: 1,
+      id: 0,
       title: 'hello world',
       completed: false
     }
-  ]
+  ])
 }
 
-const user = (state = initialState, action: any): TodosState => {
-  let todos = state.todos
+const addTodo = (todo: Todo, state: TodosState): TodosState => {
+  const todos: List<Todo> = state.todos
+  todo.id = todos.count() + 1
+  const newTodos = todos.push(todo)
+  return { ...state, todos: newTodos }
+}
+
+const toggleTodo = (todo: Todo, state: TodosState): TodosState => {
+  const todos: List<Todo> = state.todos
+  const index: number = todos.findIndex(t => t.id === todo.id)
+  const newTodos = todos.update(index, (val: Todo) => {
+    val.completed = !val.completed
+    return val
+  })
+  console.log('====================================');
+  console.log({ ...state, todos: newTodos })
+  console.log('====================================');
+  return { ...state, todos: newTodos }
+}
+
+
+const Todos = (state = initialState, action: any): TodosState => {
   switch (action.type) {
     case ActionTypes.AddTodo:
-      let newTodo = action.payload.todo
-      newTodo.id = todos[todos.length - 1].id + 1
-      todos.push(newTodo)
-
-      return { ...state, todos: [...todos] }
-    case ActionTypes.ToggleTodo:
-      const index = state.todos.findIndex(t => t.id === action.payload.todo.id)
-      todos[index].completed = action.payload.todo.completed
-      return { ...state, todos: [...todos] }
+      return addTodo(action.payload.todo, state)
+    case ActionTypes.ToggleTodo:    
+      return toggleTodo(action.payload.todo, state)
     default:
       return state
   }
 }
-export default user
+
+
+export default Todos

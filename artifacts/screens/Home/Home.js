@@ -36,7 +36,7 @@ Home.navigationOptions = ({ navigation }) => {
 import { connect } from 'react-redux';
 import Actions from './../../store/actions';
 const mapStateToProps = state => ({
-    todos: state.todos.todos
+    todos: state.Todos.todos.toArray()
 });
 const mapDispatcherToProps = dispatch => ({
     toggleTodo: todo => dispatch(Actions.toggleTodo(todo)),
