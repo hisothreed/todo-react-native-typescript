@@ -13,6 +13,7 @@
     "build": "npm run clean && npm run tsc --"
   },
   "dependencies": {
+    "@types/react-test-renderer": "^16.0.1",
     "immutable": "^3.8.2",
     "native-base": "^2.4.5",
     "react": "16.3.1",
@@ -21,7 +22,8 @@
     "react-navigation": "^2.0.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-persist": "^5.9.1"
+    "redux-persist": "^5.9.1",
+    "ts-jest": "^22.4.6"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
@@ -30,14 +32,41 @@
     "babel-jest": "22.4.4",
     "babel-preset-react-native": "4.0.0",
     "concurrently": "^3.5.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "22.4.4",
+    "jest-enzyme": "^6.0.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.4.0",
+    "react-native-test-utils": "^1.2.0",
     "react-native-typescript-transformer": "^1.2.5",
-    "react-test-renderer": "16.3.1",
+    "react-test-renderer": "^16.3.1",
     "rimraf": "^2.6.2",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTest.js",
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|expo|react-navigation|native-base-shoutem-theme|@shoutem/theme|@shoutem/animation|@shoutem/ui|tcomb-form-native)"
+    ],
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/",
+      "<rootDir>/src",
+      "<rootDir>/android"
+    ],
+    "cacheDirectory": ".jest/cache"
   }
 }

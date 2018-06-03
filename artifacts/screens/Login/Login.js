@@ -23,7 +23,7 @@ class Login extends React.Component {
 import { connect } from 'react-redux';
 import Actions from './../../store/actions';
 const mapStateToProps = state => ({
-    user: state.user.current_user
+    user: state.User.current_user
 });
 const mapDispatcherToProps = dispatch => ({
     handleUser: user => dispatch(Actions.setUser(user))

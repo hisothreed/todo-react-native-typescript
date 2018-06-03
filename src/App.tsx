@@ -14,7 +14,7 @@ interface Props {
 
 interface State {}
 
-class App extends React.Component<Props, State> {
+export class App extends React.Component<Props, State> {
   constructor(props) {
     super(props)
   }
@@ -25,7 +25,7 @@ class App extends React.Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.current_user
+  user: state.User.current_user
 })
 
 export default connect(mapStateToProps)(App)
